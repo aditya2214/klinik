@@ -45,9 +45,15 @@ Route::get('/obat/edit/{id}', 'ObatController@edit_obat')->name('obat.edit')->mi
 
 Route::get('/obat/tambah/', 'ObatController@tambah_obat')->name('obat.tambah')->middleware('auth','staff');
 
+Route::get('/obat/tambah/stock', 'ObatController@tambah_obat_stock')->name('obat.tambah_stock')->middleware('auth','staff');
+
 Route::post('/obat/tambah/simpan', 'ObatController@simpan_obat')->name('obat.simpan')->middleware('auth','staff');
 
+Route::post('/obat/edit/tambah_stock', 'ObatController@tambah_stock_update')->name('tambah_stock.update')->middleware('auth','staff');
+
 Route::post('/obat/edit/update/', 'ObatController@update_obat')->name('obat.update')->middleware('auth','staff');
+
+Route::post('/obat/import_excel', 'ObatController@import_excel')->name('obat.import_excel')->middleware('auth','staff');
 //End Obat
 
 //Lab

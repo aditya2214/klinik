@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
+use App\Imports\ObatImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ObatController extends Controller
 {
     public function index () 
     {    
         $metadatas = ambil_satudata('metadata',4);
-        $obats = ambil_semuadata('obat');
+        $obats =DB::table('obat')->where('deleted',0)->get();
         return view('obat',['obats'=> $obats],['metadatas'=>$metadatas]);   
     }
     
@@ -107,5 +109,53 @@ class ObatController extends Controller
         ]);
         $pesan="Data obat berhasil dihapus!";
         return redirect(route("obat"))->with('pesan',$pesan);
+    }
+
+    public function tambah_obat_stock(){
+        $data['metadatas'] = ambil_satudata('metadata',4);
+        $data['obat'] = DB::table('obat')->where('deleted',0)->orderBy('id','ASC')->get();
+
+        return view('tambah_stock-obat')->with($data);
+    }
+
+    public function tambah_stock_update(Request $request){
+        $total_stok = $request->total_stok;
+        $count_items = count($request->ids);    
+
+        for($i = 0; $i<$count_items; $i++)
+        {
+            $update = DB::table('obat')->where([
+                ['id','=',[$i + 1]]
+            ])->update([
+                'stok' => $total_stok[$i]
+            ]);
+        }
+
+        return redirect()->route('obat');
+    }
+
+    public function import_excel(Request $request){
+        // validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand().$file->getClientOriginalName();
+
+        // upload ke folder file_siswa di dalam folder public
+        $file->move('file_siswa',$nama_file);
+
+        // import data
+        Excel::import(new ObatImport, public_path('/file_siswa/'.$nama_file));
+
+        // notifikasi dengan session
+        $pesan='Data obat berhasil Diupload!';
+
+        // alihkan halaman kembali
+        return redirect()->back()->with('pesan',$pesan);
     }
 }

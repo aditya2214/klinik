@@ -168,7 +168,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-9 mb-0 mb-sm-0">
-                            <select num="{{$num['resep']}}" class="form-control " name="reseplist" id="reseplist" >
+                            <select num="{{$num['resep']}}" class="select2 form-control " name="reseplist" id="reseplist" >
                                 <option value="" selected disabled>Pilih satu</option>
                                 @foreach ($obats as $obat)
                                 <option value="{{$obat->id}}">{{$obat->nama_obat}} {{$obat->sediaan}} {{$obat->dosis}}{{$obat->satuan}}</option>

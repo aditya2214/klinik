@@ -46,7 +46,7 @@
                 <div class="card-body">
                 <div class="card-body">
                     <code class="mb-6">Data terakhir diperbaharui {{ hitung_usia($data->updated_time) }} yang lalu</code>
-                    <form class="user" action="{{route('pasien.update')}}" method="post">
+                    <form class="user" action="{{ url ('pasien/edit/update')}}" method="post">
                     {{csrf_field()}}
                     <input type="hidden" name="id" value="{{ $data->id }}">
                         <div class="form-group row">

@@ -24,6 +24,7 @@
     
   <script src="{{ URL::asset('js/fontawesome-iconpicker.js') }}"></script>
   <link href= "{{ URL::asset('css/fontawesome-iconpicker.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body id="page-top">
 
@@ -99,7 +100,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
             
             <a class="collapse-item {{ set_menu('obat') }} " href="{{ route('obat') }}">Daftar Obat</a>
-            <a class="collapse-item" {{ set_menu('obat.tambah') }} href="{{ route('obat.tambah') }}">Tambah Obat</a>
+            <a class="collapse-item" {{ set_menu('obat.tambah') }} href="{{ route('obat.tambah') }}">Tambah Obat Baru</a>
+            <!-- <a class="collapse-item" {{ set_menu('obat.tambah_stock') }} href="{{ route('obat.tambah_stock') }}">Tambah Stock Obat</a> -->
           </div>
         </div>
       </li>
@@ -399,6 +401,7 @@
   </div>
 
 
+  <script src="{{ asset ('vendor/jquery/jquery.min.js') }}"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="{{ URL::asset('js/sb-admin-2.min.js') }}"></script>
@@ -406,11 +409,16 @@
   <!-- Page level plugins -->
   <script src="{{ URL::asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ URL::asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-
   <!-- Page level custom scripts -->
   <script src="{{ URL::asset('js/demo/datatables-demo.js') }}"></script>
-
-    
+  <script src="{{ URL::asset('/js/printThis.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script type="text/javascript">
+     $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+  @yield('scripts');
 </body>
 
 </html>

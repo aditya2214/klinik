@@ -9,6 +9,32 @@
 @endforeach
 @section('konten')
 <!--Modal Konfirmasi Delete-->
+<!-- Import Excel -->
+<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form method="post" action="{{ route ('obat.import_excel') }}" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+        </div>
+        <div class="modal-body">
+
+          {{ csrf_field() }}
+
+          <label>Pilih file excel</label>
+          <div class="form-group">
+            <input type="file" name="file" required="required">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Import</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
     <div id="DeleteModal" class="modal fade text-danger" role="dialog">
    <div class="modal-dialog modal-dialog modal-dialog-centered ">
      <!-- Modal content-->
@@ -37,18 +63,22 @@
     <div class="card shadow mb-4">
         <div class="card-header d-sm-flex align-items-center justify-content-between py-3">               
             <h6 class="m-0 font-weight-bold text-primary">Daftar Stok Obat</h6>
-            <a href="{{route('obat.tambah')}}" class="d-none d-sm-inline-block btn btn-primary btn-sm shadow-sm">
-            <i class="fas fa-plus fa-sm"></i> Tambah Obat</a> 
+            <div class="btn-group">
+              <button type="button" class="d-none d-sm-inline-block btn btn-success btn-sm shadow-sm" data-toggle="modal" data-target="#importExcel">
+              <i class="fas fa-upload fa-sm"></i> Import Excel
+              </button>
+              <a href="{{route('obat.tambah')}}" class="d-none d-sm-inline-block btn btn-primary btn-sm shadow-sm">
+              <i class="fas fa-plus fa-sm"></i> Tambah Obat</a> 
+            </div>
         </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Id</th>
                       <th>Nama Obat</th>
-                      <th>Sediaan</th>
-                      <th>Dosis</th>
+                      <!-- <th>Sediaan</th>
+                      <th>Dosis</th> -->
                       <th>Stok</th>
                       <th>Harga</th>
                       <th>Tindakan</th>
@@ -56,10 +86,9 @@
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Id</th>
                       <th>Nama Obat</th>
-                      <th>Sediaan</th>
-                      <th>Dosis</th>
+                      <!-- <th>Sediaan</th>
+                      <th>Dosis</th> -->
                       <th>Stok</th>
                       <th>Harga</th>
                       <th>Tindakan</th>
@@ -68,10 +97,9 @@
                   <tbody>
                   @foreach ($obats as $obat)
                     <tr>
-                      <td>{{$obat->id }}</td>
                       <td>{{ $obat->nama_obat }}</td>
-                      <td>{{ $obat->sediaan }}</td>
-                      <td>{{ $obat->dosis }} {{$obat->satuan}}</td>
+                      <!-- <td>{{ $obat->sediaan }}</td>
+                      <td>{{ $obat->dosis }} {{$obat->satuan}}</td> -->
                       <td>{{ $obat->stok }}</td>
                       <td>{{ formatrupiah($obat->harga)}}</td>
                       <td>

@@ -171,7 +171,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-9 mb-0 mb-sm-0">
-                            <select class="form-control " name="reseplist" id="reseplist" {{Auth::user()->profesi !== "Dokter" ? 'disabled="true"': ''}}>
+                            <select class="select2 form-control " name="reseplist" id="reseplist" style="width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" {{Auth::user()->profesi !== "Dokter" ? 'disabled="true"': ''}}>
                                 <option value="" selected disabled>Pilih satu</option>
                                 @foreach ($obats as $obat)
                                 <option value="{{$obat->id}}">{{$obat->nama_obat}} {{$obat->sediaan}} {{$obat->dosis}}{{$obat->satuan}}</option>
@@ -256,6 +256,5 @@
     $(document).on('click', '.remove-res', function(){  
          $(this).parents('tr').remove();
     });  
-   
 </script>
 @endsection
